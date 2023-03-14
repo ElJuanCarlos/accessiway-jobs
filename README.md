@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Accessiway Job Offer Website
+This is a simple [Next.js](https://nextjs.org/) website that displays the job offers available at our company. It is meant for training purposes only and is not intended to go into production.
 
 ## Getting Started
 
