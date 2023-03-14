@@ -1,0 +1,3 @@
+interface DropdownWrapperProps {
+  visible: String;
+}

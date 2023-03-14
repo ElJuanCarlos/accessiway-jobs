@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Atkinson";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/fonts/AtkinsonHyperlegible-Regular.ttf) format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+    U+FE2E-FE2F;
+}
+@font-face {
+  font-family: "Atkinson";
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/fonts/AtkinsonHyperlegible-Bold.ttf) format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+    U+FE2E-FE2F;
+}
