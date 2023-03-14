@@ -1,5 +1,5 @@
 interface CardProps {
-  location: string;
+  location?: string;
   title: string;
   description: string;
 }

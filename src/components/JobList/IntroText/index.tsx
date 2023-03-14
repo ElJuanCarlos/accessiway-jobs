@@ -12,9 +12,7 @@ const IntroText: React.FC = () => {
         <Title>
           A great workplace combines exceptional colleagues and hard problems.
         </Title>
-        <SubTitle>
-          Gli ultimi aggiornamenti, storie, idee e eventi dal team AccessiWay
-        </SubTitle>
+        <SubTitle>Find the job that best suits you!</SubTitle>
       </IntroContainer>
     </Flex>
   );

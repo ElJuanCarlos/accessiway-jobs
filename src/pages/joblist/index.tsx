@@ -1,23 +1,68 @@
 import { GetStaticProps } from "next";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getSortedJobsData } from "../../../lib/jobs";
 import Link from "next/link";
 import Head from "next/head";
-import { Header } from "@/modules/Organism";
+import { Footer, Header } from "@/modules/Organism";
 import styled from "styled-components";
-import { IntroText } from "@/components/JobList";
+import { IntroText, FilterBar } from "@/components/JobList";
 import Card from "@/modules/Molecules/CardBlog";
 
-const Box = styled.div`
-  padding-top: 80px;
-  max-width: 80%;
-  display: flex;
-  flex-direction: column;
+const Grid = styled.div`
+  padding-top: 30px;
+  width: 90%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin: 0 auto;
+  @media (max-width: 668px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const JobList = ({ jobs }: JobListProps) => {
+  const [department, setDepartment] = useState<string>();
+  const [location, setLocation] = useState<string>();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredList, setFilteredList] = useState<Job[]>(jobs);
+
+  const handleDepartment = (dep: string) => {
+    setDepartment(dep);
+  };
+  const handleLocation = (loc: string) => {
+    setLocation(loc);
+  };
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+  };
+
+  useEffect(() => {
+    let filteredJobs = jobs.filter((job) => {
+      if (department && location) {
+        return (
+          job.department.toLocaleLowerCase() === department &&
+          job.location.toLowerCase() === location
+        );
+      } else if (department) {
+        return job.department.toLocaleLowerCase() === department;
+      } else if (location) {
+        return job.location.toLocaleLowerCase() === location;
+      }
+      return true;
+    });
+
+    if (searchTerm) {
+      filteredJobs = filteredJobs.filter(
+        (job) =>
+          job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          job.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    setFilteredList(filteredJobs);
+  }, [department, location, searchTerm, jobs]);
+
   return (
     <>
       <Head>
@@ -29,22 +74,25 @@ const JobList = ({ jobs }: JobListProps) => {
       <main>
         <Header />
         <IntroText />
-        <Box>
-          {jobs.map((job) => (
-            <Link
-              key={job.id}
-              href={`joblist/${job.id}`}
-              style={{ textDecoration: "none", color: "#000" }}
-            >
+        <FilterBar
+          handleDepartment={handleDepartment}
+          handleLocation={handleLocation}
+          handleSearch={handleSearch}
+        />
+        <Grid>
+          {filteredList.map((job) => (
+            <div key={job.id}>
               <Card
                 title={job.title}
                 description={job.description}
                 location={job.location}
+                link={`joblist/${job.id}`}
                 icon={""}
               />
-            </Link>
+            </div>
           ))}
-        </Box>
+        </Grid>
+        <Footer />
       </main>
     </>
   );
